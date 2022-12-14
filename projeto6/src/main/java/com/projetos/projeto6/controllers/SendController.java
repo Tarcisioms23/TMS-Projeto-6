@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.projetos.projeto6.dtos.SendDto;
 import com.projetos.projeto6.models.SendModel;
-import com.projetos.projeto6.services.AmigoService;
 import com.projetos.projeto6.services.SendService;
 
 @RestController
@@ -22,14 +21,12 @@ public class SendController {
 	@Autowired 
 	SendService sendService;
 	
-	@Autowired 
-	AmigoService amigoService;
 	
 	@PostMapping("/EmailAmigo")
 	public ResponseEntity<SendModel> envioEmail(@RequestBody @Valid SendDto sendDto ){
 		SendModel sendModel = new SendModel();
 		BeanUtils.copyProperties(sendDto, sendModel);
-		amigoService.sorteiaAmigo(sendModel);
+		sendService.sorteiaAmigo(sendModel);
 		return new ResponseEntity<>(sendModel, HttpStatus.CREATED);
 	}
 }
